@@ -50,6 +50,11 @@ _Bool __aarch64_have_lse_atomics
 #include "aarch64/lse_atomics/getauxval.inc"
 #elif defined(_WIN32)
 #include "aarch64/lse_atomics/windows.inc"
+#elif defined(__illumos__)
+// clang-format off: should not reorder sys/auxv.h alphabetically
+#include <sys/auxv.h>
+// clang-format on
+#include "aarch64/lse_atomics/illumos.inc"
 #else
 // When unimplemented, we leave __aarch64_have_lse_atomics initialized to false.
 #endif
@@ -82,6 +87,8 @@ struct {
 #include "aarch64/fmv/windows.inc"
 #elif defined(ENABLE_BAREMETAL_AARCH64_FMV)
 #include "aarch64/fmv/baremetal.inc"
+#elif defined(__illumos__)
+#include "aarch64/fmv/illumos.inc"
 #else
 #include "aarch64/fmv/unimplemented.inc"
 #endif
